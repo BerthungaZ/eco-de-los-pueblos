@@ -12,7 +12,7 @@ window.ECO_DATA = {
       name: "Teodoro Cano",
       origin: "Papantla, Veracruz",
       technique: "Escultura y muralismo",
-      avatar: "assets/artista-01.svg",
+      avatar: "artista-01.svg",
       bio: "Artista inspirado por la memoria comunitaria, la madera, los símbolos antiguos y el color de las fiestas populares."
     },
     {
@@ -20,7 +20,7 @@ window.ECO_DATA = {
       name: "Ana Xochitl",
       origin: "Oaxaca, Oaxaca",
       technique: "Textil y pigmentos naturales",
-      avatar: "assets/artista-02.svg",
+      avatar: "artista-02.svg",
       bio: "Creadora textil que trabaja con bordado, tintes orgánicos y relatos familiares transmitidos entre generaciones."
     },
     {
@@ -28,7 +28,7 @@ window.ECO_DATA = {
       name: "María Tének",
       origin: "Tantoyuca, Veracruz",
       technique: "Bordado y arte popular",
-      avatar: "assets/artista-03.svg",
+      avatar: "artista-03.svg",
       bio: "Su obra combina motivos florales, geometría indígena y escenas cotidianas de la Huasteca."
     },
     {
@@ -36,7 +36,7 @@ window.ECO_DATA = {
       name: "Julián Montes",
       origin: "Puebla, Puebla",
       technique: "Pintura acrílica",
-      avatar: "assets/artista-04.svg",
+      avatar: "artista-04.svg",
       bio: "Pintor de paisajes emocionales, mercados, montes y arquitectura popular."
     }
   ],
@@ -55,7 +55,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 1,
       featured: true,
-      image: "assets/obra-01.svg",
+      image: "obra-01.svg",
       tags: ["paisaje", "montaña", "memoria"],
       description: "Paisaje cálido que interpreta la relación entre territorio, nostalgia y comunidad."
     },
@@ -73,7 +73,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 1,
       featured: false,
-      image: "assets/obra-02.svg",
+      image: "obra-02.svg",
       tags: ["cielo", "campo", "acrílico"],
       description: "Obra de color sereno que representa la calma del campo después de la lluvia."
     },
@@ -91,7 +91,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 1,
       featured: true,
-      image: "assets/obra-03.svg",
+      image: "obra-03.svg",
       tags: ["fiesta", "río", "color"],
       description: "Composición vibrante inspirada en celebraciones comunitarias cercanas al río."
     },
@@ -109,7 +109,7 @@ window.ECO_DATA = {
       certificate: false,
       stock: 1,
       featured: false,
-      image: "assets/obra-04.svg",
+      image: "obra-04.svg",
       tags: ["acuarela", "niebla", "pueblo"],
       description: "Acuarela suave sobre caminos, casas y montañas cubiertas por neblina."
     },
@@ -127,7 +127,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 1,
       featured: true,
-      image: "assets/obra-05.svg",
+      image: "obra-05.svg",
       tags: ["madera", "ceremonia", "totonaca"],
       description: "Escultura en madera con formas simbólicas que evocan tradición, espiritualidad y conexión con la naturaleza."
     },
@@ -145,7 +145,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 1,
       featured: false,
-      image: "assets/obra-06.svg",
+      image: "obra-06.svg",
       tags: ["barro", "monte", "guardián"],
       description: "Figura protectora inspirada en relatos rurales y espíritus del monte."
     },
@@ -163,7 +163,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 1,
       featured: true,
-      image: "assets/obra-07.svg",
+      image: "obra-07.svg",
       tags: ["piedra", "ritual", "antiguo"],
       description: "Pieza sólida con pigmentos minerales y una presencia ceremonial."
     },
@@ -181,7 +181,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 1,
       featured: false,
-      image: "assets/obra-08.svg",
+      image: "obra-08.svg",
       tags: ["máscara", "sol", "madera"],
       description: "Máscara decorativa con líneas solares, ideal para colección o espacio cultural."
     },
@@ -199,7 +199,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 1,
       featured: false,
-      image: "assets/obra-09.svg",
+      image: "obra-09.svg",
       tags: ["mercado", "alba", "vida cotidiana"],
       description: "Escena matutina de vendedores, frutas y arquitectura popular."
     },
@@ -217,7 +217,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 2,
       featured: true,
-      image: "assets/obra-10.svg",
+      image: "obra-10.svg",
       tags: ["bordado", "maíz", "huasteca"],
       description: "Bordado que celebra el maíz como símbolo de alimento, origen y comunidad."
     },
@@ -235,7 +235,7 @@ window.ECO_DATA = {
       certificate: true,
       stock: 1,
       featured: false,
-      image: "assets/obra-11.svg",
+      image: "obra-11.svg",
       tags: ["telar", "flores", "natural"],
       description: "Textil de telar de cintura con motivos florales y tintes naturales."
     },
@@ -253,7 +253,7 @@ window.ECO_DATA = {
       certificate: false,
       stock: 3,
       featured: false,
-      image: "assets/obra-12.svg",
+      image: "obra-12.svg",
       tags: ["fotografía", "mercado", "azul"],
       description: "Fotografía intervenida sobre escenas de mercado, textiles y tonos azules."
     }

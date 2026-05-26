@@ -1058,12 +1058,12 @@ textarea:focus {
   color: var(--paper);
   background:
     linear-gradient(135deg, rgba(22,52,69,.88), rgba(36,78,101,.76)),
-    url("../assets/hero.svg") center/cover;
+    url("hero.svg") center/cover;
 }
 .register-visual.artist {
   background:
     linear-gradient(135deg, rgba(22,52,69,.90), rgba(173,109,69,.68)),
-    url("../assets/obra-05.svg") center/cover;
+    url("obra-05.svg") center/cover;
 }
 .register-card {
   display: grid;

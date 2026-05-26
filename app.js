@@ -213,7 +213,7 @@
     loader.className = "page-loader";
     loader.innerHTML = `
       <div class="loader-inner">
-        <img src="assets/logo-eco.png" alt="Eco de los Pueblos">
+        <img src="logo-eco.png" alt="Eco de los Pueblos">
         <p>Eco de los pueblos: un espacio donde el arte, la historia y las tradiciones de México cobran vida.</p>
         <div class="loader-bar"><span></span></div>
       </div>
@@ -237,7 +237,7 @@
       name: profile.name,
       origin: profile.origin || "México",
       technique: profile.technique || "Arte contemporáneo",
-      avatar: profile.avatar || "assets/artista-04.svg",
+      avatar: profile.avatar || "artista-04.svg",
       bio: profile.bio || "Artista registrado en Eco de los Pueblos."
     }));
 
@@ -967,7 +967,7 @@
           <section class="account-login motion-card">
             <span class="pill small">Acceso</span>
             <h2>Iniciar sesión</h2>
-            <p>Entra con una cuenta existente</p>
+            <p>Entra con una cuenta existente o usa una cuenta demo para presentación.</p>
 
             <form id="loginForm" class="login-form">
               <label>Correo electrónico
