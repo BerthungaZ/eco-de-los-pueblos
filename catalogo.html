@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorar obras | Eco de los Pueblos</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="">
+
+<header class="site-header" id="top">
+  <a class="brand" href="index.html" aria-label="Ir al inicio de Eco de los Pueblos">
+    <span class="brand-media">
+      <img class="brand-logo" src="assets/logo-nav.png" alt="Logo Eco de los Pueblos">
+    </span>
+    <span class="brand-text">
+      <strong>Eco de los Pueblos</strong>
+      <small>Galería digital · Arte, historia y tradición</small>
+    </span>
+  </a>
+
+  <input class="nav-toggle" id="navToggle" type="checkbox" aria-label="Abrir menú">
+  <label class="nav-button" for="navToggle"><span></span><span></span><span></span></label>
+
+  <nav class="main-nav" aria-label="Navegación principal">
+    <a href="index.html" data-nav="index">Inicio</a>
+    <a href="catalogo.html" data-nav="catalogo">Explorar</a>
+    <a href="artistas.html" data-nav="artistas">Artistas</a>
+    <a href="envios.html" data-nav="envios">Envíos</a>
+    <a class="artist-only" href="panel-artista.html" data-nav="panel-artista">Vender mi arte</a>
+    <a class="admin-only" href="admin.html" data-nav="admin">Panel administrador</a>
+    <a class="nav-cart" href="carrito.html" data-nav="carrito">Carrito <span id="cartCount">0</span></a>
+    <a class="nav-account" href="cuenta.html" data-nav="cuenta">Mi cuenta</a>
+  </nav>
+</header>
+  <main>
+
+<section class="explore-hero">
+  <div>
+    <span class="pill">Explorar</span>
+    <h1>Encuentra la obra que sí conversa con tu espacio.</h1>
+    <p>
+      Explora piezas originales por categoría, artista, técnica, origen, precio,
+      certificado y disponibilidad. Todo el catálogo vive aquí.
+    </p>
+
+    <div class="explore-searchbar">
+      <input id="searchInput" type="search" placeholder="Buscar por obra, artista, técnica, origen o etiqueta...">
+      <button class="btn btn-primary" id="heroSearchButton" type="button">Buscar</button>
+    </div>
+  </div>
+
+  <aside class="explore-highlight">
+    <span>Curaduría rápida</span>
+    <strong id="exploreTotalArtworks">12</strong>
+    <p>obras disponibles para filtrar, guardar o comprar</p>
+  </aside>
+</section>
+
+<section class="quick-explore">
+  <div class="section-head mini">
+    <span class="pill small">Atajos</span>
+    <h2>Filtros rápidos</h2>
+  </div>
+
+  <div class="quick-filter-grid" id="exploreQuickFilters">
+    <button class="quick-filter active" type="button" data-quick="all">
+      <span>✦</span>
+      <strong>Todas</strong>
+      <small>Catálogo completo</small>
+    </button>
+    <button class="quick-filter" type="button" data-category="Pinturas">
+      <span>🎨</span>
+      <strong>Pinturas</strong>
+      <small>Lienzo y color</small>
+    </button>
+    <button class="quick-filter" type="button" data-category="Esculturas">
+      <span>🗿</span>
+      <strong>Esculturas</strong>
+      <small>Volumen y materia</small>
+    </button>
+    <button class="quick-filter" type="button" data-category="Textiles">
+      <span>🧵</span>
+      <strong>Textiles</strong>
+      <small>Bordado y telar</small>
+    </button>
+    <button class="quick-filter" type="button" data-category="Artesanías">
+      <span>🏺</span>
+      <strong>Artesanías</strong>
+      <small>Piezas manuales</small>
+    </button>
+    <button class="quick-filter" type="button" data-category="Fotografía">
+      <span>📷</span>
+      <strong>Fotografía</strong>
+      <small>Mirada fine art</small>
+    </button>
+    <button class="quick-filter" type="button" data-quick="certificate">
+      <span>◆</span>
+      <strong>Certificadas</strong>
+      <small>Autenticidad</small>
+    </button>
+    <button class="quick-filter" type="button" data-quick="recent">
+      <span>⌁</span>
+      <strong>Nuevas</strong>
+      <small>Últimas piezas</small>
+    </button>
+  </div>
+</section>
+
+<section class="shop-layout explore-layout">
+  <aside class="filter-panel">
+    <div class="filter-title">
+      <h2>Filtros finos</h2>
+      <button class="link-button" id="clearFilters">Limpiar</button>
+    </div>
+
+    <label>Categoría
+      <select id="categoryFilter">
+        <option value="all">Todas</option>
+      </select>
+    </label>
+
+    <label>Artista
+      <select id="artistFilter">
+        <option value="all">Todos</option>
+      </select>
+    </label>
+
+    <label>Técnica
+      <select id="techniqueFilter">
+        <option value="all">Todas</option>
+      </select>
+    </label>
+
+    <label>Origen
+      <select id="originFilter">
+        <option value="all">Todos</option>
+      </select>
+    </label>
+
+    <div class="range-pair">
+      <label>Precio mínimo
+        <input id="minPriceFilter" type="number" min="0" placeholder="$0">
+      </label>
+      <label>Precio máximo
+        <input id="maxPriceFilter" type="number" min="0" placeholder="$15,000">
+      </label>
+    </div>
+
+    <label>Ordenar
+      <select id="sortFilter">
+        <option value="featured">Recomendadas</option>
+        <option value="priceAsc">Precio menor</option>
+        <option value="priceDesc">Precio mayor</option>
+        <option value="recent">Más recientes</option>
+        <option value="az">Nombre A-Z</option>
+      </select>
+    </label>
+
+    <div class="check-row">
+      <input id="certificateFilter" type="checkbox">
+      <label for="certificateFilter">Solo con certificado</label>
+    </div>
+
+    <div class="check-row">
+      <input id="availableFilter" type="checkbox">
+      <label for="availableFilter">Solo disponibles</label>
+    </div>
+
+    <div class="check-row">
+      <input id="newFilter" type="checkbox">
+      <label for="newFilter">Solo obras recientes</label>
+    </div>
+  </aside>
+
+  <section class="results-panel">
+    <div class="results-toolbar">
+      <div>
+        <span class="pill small">Resultados</span>
+        <h2 id="resultCount">0 obras</h2>
+      </div>
+      <div class="active-chips" id="activeChips"></div>
+    </div>
+
+    <div class="explore-insight" id="exploreInsight">
+      Usa los atajos superiores o los filtros finos para encontrar una obra por intención: regalo,
+      colección, decoración, pieza certificada o nueva publicación.
+    </div>
+
+    <div class="art-grid" id="catalogGrid"></div>
+
+    <div class="empty-state" id="emptyState">
+      <h3>No encontramos obras con esos filtros</h3>
+      <p>Prueba limpiar filtros o buscar otra técnica, artista u origen.</p>
+    </div>
+  </section>
+</section>
+
+
+  </main>
+
+<footer class="site-footer">
+  <div>
+    <strong>Eco de los Pueblos</strong>
+    <p>Eco de los pueblos: un espacio donde el arte, la historia y las tradiciones de México cobran vida.</p>
+  </div>
+  <div class="footer-mini">
+    <span>Compra segura</span>
+    <span>Talento local</span>
+    <span>Galería digital</span>
+  </div>
+</footer>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

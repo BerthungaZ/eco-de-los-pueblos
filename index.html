@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio | Eco de los Pueblos</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="">
+
+<header class="site-header" id="top">
+  <a class="brand" href="index.html" aria-label="Ir al inicio de Eco de los Pueblos">
+    <span class="brand-media">
+      <img class="brand-logo" src="assets/logo-nav.png" alt="Logo Eco de los Pueblos">
+    </span>
+    <span class="brand-text">
+      <strong>Eco de los Pueblos</strong>
+      <small>Galería digital · Arte, historia y tradición</small>
+    </span>
+  </a>
+
+  <input class="nav-toggle" id="navToggle" type="checkbox" aria-label="Abrir menú">
+  <label class="nav-button" for="navToggle"><span></span><span></span><span></span></label>
+
+  <nav class="main-nav" aria-label="Navegación principal">
+    <a href="index.html" data-nav="index">Inicio</a>
+    <a href="catalogo.html" data-nav="catalogo">Explorar</a>
+    <a href="artistas.html" data-nav="artistas">Artistas</a>
+    <a href="envios.html" data-nav="envios">Envíos</a>
+    <a class="artist-only" href="panel-artista.html" data-nav="panel-artista">Vender mi arte</a>
+    <a class="admin-only" href="admin.html" data-nav="admin">Panel administrador</a>
+    <a class="nav-cart" href="carrito.html" data-nav="carrito">Carrito <span id="cartCount">0</span></a>
+    <a class="nav-account" href="cuenta.html" data-nav="cuenta">Mi cuenta</a>
+  </nav>
+</header>
+
+  <main>
+
+<section class="hero-section">
+  <div class="hero-copy reveal">
+    <span class="pill">Galería digital mexicana</span>
+    <h1>Eco de los pueblos: un espacio donde el arte, la historia y las tradiciones de México cobran vida.</h1>
+    <p>
+      Descubre obras auténticas, conoce a sus creadores y compra piezas que preservan memoria,
+      oficio y belleza. Una experiencia clara, elegante y pensada tanto para compradores como para artistas.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="catalogo.html">Explorar obras</a>
+      <a class="btn btn-soft artist-cta" href="registro-artista.html">Quiero vender mi arte</a>
+    </div>
+    <div class="trust-row">
+      <span>✓ Compra sencilla</span>
+      <span>✓ Perfiles de artistas</span>
+      <span>✓ Obras con identidad</span>
+    </div>
+  </div>
+  <div class="hero-gallery reveal">
+    <div class="hero-card hero-main"><img src="assets/logo-eco.png" alt="Logo de Eco de los Pueblos"></div>
+    <div class="floating-card one">Arte, historia y tradición</div>
+    <div class="floating-card two">Experiencia digital fluida</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <span class="pill">Destacadas</span>
+    <h2>Obras recomendadas</h2>
+    <p>Una curaduría inicial para que el usuario entre directo al corazón del catálogo.</p>
+  </div>
+  <div class="art-grid" id="featuredGrid"></div>
+</section>
+
+<section class="experience-strip">
+  <article>
+    <span>01</span>
+    <h3>Para clientes</h3>
+    <p>Buscar, filtrar, guardar favoritos, agregar al carrito y rastrear pedidos.</p>
+  </article>
+  <article>
+    <span>02</span>
+    <h3>Para artistas</h3>
+    <p>Crear perfil, publicar obras y administrar piezas desde un panel local.</p>
+  </article>
+  <article>
+    <span>03</span>
+    <h3>Para presentación</h3>
+    <p>Interfaz moderna, responsiva y lista para explicar como proyecto real.</p>
+  </article>
+</section>
+
+<section class="section split-cta">
+  <div>
+    <span class="pill">Flujo completo</span>
+    <h2>Del catálogo al seguimiento del pedido.</h2>
+    <p>La compra se simula con validación, genera un código de pedido y luego puede consultarse en Envíos.</p>
+  </div>
+  <a class="btn btn-primary" href="catalogo.html">Probar flujo</a>
+</section>
+
+  </main>
+
+<footer class="site-footer">
+  <div>
+    <strong>Eco de los Pueblos</strong>
+    <p>Eco de los pueblos: un espacio donde el arte, la historia y las tradiciones de México cobran vida.</p>
+  </div>
+  <div class="footer-mini">
+    <span>Compra segura</span>
+    <span>Talento local</span>
+    <span>Galería digital</span>
+  </div>
+</footer>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

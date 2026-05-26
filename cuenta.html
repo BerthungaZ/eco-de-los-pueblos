@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi cuenta | Eco de los Pueblos</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="">
+
+<header class="site-header" id="top">
+  <a class="brand" href="index.html" aria-label="Ir al inicio de Eco de los Pueblos">
+    <span class="brand-media">
+      <img class="brand-logo" src="assets/logo-nav.png" alt="Logo Eco de los Pueblos">
+    </span>
+    <span class="brand-text">
+      <strong>Eco de los Pueblos</strong>
+      <small>Galería digital · Arte, historia y tradición</small>
+    </span>
+  </a>
+
+  <input class="nav-toggle" id="navToggle" type="checkbox" aria-label="Abrir menú">
+  <label class="nav-button" for="navToggle"><span></span><span></span><span></span></label>
+
+  <nav class="main-nav" aria-label="Navegación principal">
+    <a href="index.html" data-nav="index">Inicio</a>
+    <a href="catalogo.html" data-nav="catalogo">Explorar</a>
+    <a href="artistas.html" data-nav="artistas">Artistas</a>
+    <a href="envios.html" data-nav="envios">Envíos</a>
+    <a class="artist-only" href="panel-artista.html" data-nav="panel-artista">Vender mi arte</a>
+    <a class="admin-only" href="admin.html" data-nav="admin">Panel administrador</a>
+    <a class="nav-cart" href="carrito.html" data-nav="carrito">Carrito <span id="cartCount">0</span></a>
+    <a class="nav-account" href="cuenta.html" data-nav="cuenta">Mi cuenta</a>
+  </nav>
+</header>
+
+  <main>
+
+<section class="account-shell">
+  <div class="account-cover">
+    <div>
+      <span class="pill light">Mi cuenta</span>
+      <h1>Centro personal de Eco de los Pueblos</h1>
+      <p>Inicia sesión, crea tu cuenta y administra tu perfil, tus pedidos, favoritos y datos de envío.</p>
+    </div>
+  </div>
+
+  <section class="account-state" id="accountState"></section>
+</section>
+
+  </main>
+
+<footer class="site-footer">
+  <div>
+    <strong>Eco de los Pueblos</strong>
+    <p>Eco de los pueblos: un espacio donde el arte, la historia y las tradiciones de México cobran vida.</p>
+  </div>
+  <div class="footer-mini">
+    <span>Compra segura</span>
+    <span>Talento local</span>
+    <span>Galería digital</span>
+  </div>
+</footer>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

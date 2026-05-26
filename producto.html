@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producto | Eco de los Pueblos</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="">
+
+<header class="site-header" id="top">
+  <a class="brand" href="index.html" aria-label="Ir al inicio de Eco de los Pueblos">
+    <span class="brand-media">
+      <img class="brand-logo" src="assets/logo-nav.png" alt="Logo Eco de los Pueblos">
+    </span>
+    <span class="brand-text">
+      <strong>Eco de los Pueblos</strong>
+      <small>Galería digital · Arte, historia y tradición</small>
+    </span>
+  </a>
+
+  <input class="nav-toggle" id="navToggle" type="checkbox" aria-label="Abrir menú">
+  <label class="nav-button" for="navToggle"><span></span><span></span><span></span></label>
+
+  <nav class="main-nav" aria-label="Navegación principal">
+    <a href="index.html" data-nav="index">Inicio</a>
+    <a href="catalogo.html" data-nav="catalogo">Explorar</a>
+    <a href="artistas.html" data-nav="artistas">Artistas</a>
+    <a href="envios.html" data-nav="envios">Envíos</a>
+    <a class="artist-only" href="panel-artista.html" data-nav="panel-artista">Vender mi arte</a>
+    <a class="admin-only" href="admin.html" data-nav="admin">Panel administrador</a>
+    <a class="nav-cart" href="carrito.html" data-nav="carrito">Carrito <span id="cartCount">0</span></a>
+    <a class="nav-account" href="cuenta.html" data-nav="cuenta">Mi cuenta</a>
+  </nav>
+</header>
+
+  <main>
+
+<section class="product-page" id="productPage">
+  <div class="product-media">
+    <img id="productImage" src="assets/obra-01.svg" alt="Obra seleccionada">
+    <div class="media-badges">
+      <span id="productCategory">Categoría</span>
+      <span id="productCertificate">Certificado</span>
+    </div>
+  </div>
+
+  <aside class="product-info-panel">
+    <span class="pill" id="productOrigin">Origen</span>
+    <h1 id="productTitle">Título de la obra</h1>
+    <p class="product-artist" id="productArtist">Artista</p>
+    <p id="productDescription">Descripción de la obra.</p>
+
+    <div class="price-line">
+      <strong id="productPrice">$0 MXN</strong>
+      <button class="favorite-big" id="productFavorite" type="button">♡ Guardar</button>
+    </div>
+
+    <div class="details-grid" id="productDetails"></div>
+
+    <div class="product-actions">
+      <button class="btn btn-primary" id="buyNow" type="button">Comprar ahora</button>
+      <button class="btn btn-soft" id="addToCart" type="button">Agregar al carrito</button>
+    </div>
+
+    <div class="certificate-box">
+      <h2>Certificado de autenticidad</h2>
+      <p>Incluye ficha de autor, técnica, año, medidas y registro de la pieza.</p>
+    </div>
+  </aside>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <span class="pill">Similares</span>
+    <h2>También podrías mirar</h2>
+  </div>
+  <div class="art-grid" id="similarGrid"></div>
+</section>
+
+  </main>
+
+<footer class="site-footer">
+  <div>
+    <strong>Eco de los Pueblos</strong>
+    <p>Eco de los pueblos: un espacio donde el arte, la historia y las tradiciones de México cobran vida.</p>
+  </div>
+  <div class="footer-mini">
+    <span>Compra segura</span>
+    <span>Talento local</span>
+    <span>Galería digital</span>
+  </div>
+</footer>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
