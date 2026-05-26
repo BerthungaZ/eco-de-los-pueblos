@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-label="Obra 4">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#405f6b" stop-opacity=".28"/>
+          <stop offset=".45" stop-color="#fff8ed"/>
+          <stop offset="1" stop-color="#f5c566" stop-opacity=".30"/>
+        </linearGradient>
+      </defs>
+      
+        <rect width="900" height="620" fill="url(#bg)"/>
+        <circle cx="705" cy="130" r="72" fill="#f5c566" opacity=".75"/>
+        <path d="M0 448 C140 350 250 392 370 320 C500 240 655 302 900 210 L900 620 L0 620Z" fill="#92a872" opacity=".92"/>
+        <path d="M0 496 C160 405 285 455 432 372 C575 290 710 380 900 315 L900 620 L0 620Z" fill="#c86f4a" opacity=".95"/>
+        <path d="M0 535 C160 480 315 510 448 460 C620 395 722 475 900 420 L900 620 L0 620Z" fill="#405f6b" opacity=".95"/>
+        <path d="M122 438 C112 280 188 180 300 155" stroke="#253b31" stroke-width="28" fill="none" stroke-linecap="round"/>
+        <path d="M184 260 C105 210 98 148 178 115 C258 82 318 138 280 205 C250 260 210 268 184 260Z" fill="#254734" opacity=".9"/>
+        <path d="M222 215 C236 150 305 118 370 148 C440 180 410 258 335 267 C270 275 214 254 222 215Z" fill="#335f43" opacity=".85"/>
+        
+      <rect x="28" y="28" width="844" height="564" rx="30" fill="none" stroke="#ffffff" stroke-width="16" opacity=".55"/>
+    </svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-label="Obra 7">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#664e37" stop-opacity=".28"/>
+          <stop offset=".45" stop-color="#fff8ed"/>
+          <stop offset="1" stop-color="#e7dccd" stop-opacity=".30"/>
+        </linearGradient>
+      </defs>
+      
+        <rect width="900" height="620" fill="url(#bg)"/>
+        <circle cx="680" cy="110" r="70" fill="#e7dccd" opacity=".65"/>
+        <rect x="80" y="88" width="740" height="430" rx="34" fill="#fff8ed" opacity=".58"/>
+        <path d="M210 450 C210 330 290 280 365 250 C420 230 445 175 505 160 C585 140 675 205 690 302 C710 428 600 510 450 514 C315 518 210 500 210 450Z" fill="#a84f3e"/>
+        <path d="M375 245 C352 185 380 132 436 120 C498 106 552 150 548 214 C543 292 407 326 375 245Z" fill="#315f78" opacity=".92"/>
+        <path d="M304 411 C398 385 520 390 628 444" fill="none" stroke="#664e37" stroke-width="18" stroke-linecap="round" opacity=".58"/>
+        <circle cx="454" cy="210" r="18" fill="#1f2326" opacity=".72"/>
+        <path d="M240 492 L690 492" stroke="#1f2326" stroke-width="18" opacity=".2" stroke-linecap="round"/>
+        
+      <rect x="28" y="28" width="844" height="564" rx="30" fill="none" stroke="#ffffff" stroke-width="16" opacity=".55"/>
+    </svg>
