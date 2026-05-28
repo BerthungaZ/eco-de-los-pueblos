@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-label="The Pomps of the Subsoil">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071b3a"/><stop offset=".55" stop-color="#173b88"/><stop offset="1" stop-color="#0ea5a3"/></linearGradient>
+    <radialGradient id="r" cx="70%" cy="25%" r="60%"><stop stop-color="#f316a7" stop-opacity=".85"/><stop offset="1" stop-color="#f316a7" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="900" height="620" rx="34" fill="#fffaf2"/>
+  <rect x="42" y="42" width="816" height="536" rx="30" fill="url(#g)" opacity=".92"/>
+  <rect x="42" y="42" width="816" height="536" rx="30" fill="url(#r)"/>
+  <path d="M80 465 C180 340 260 410 360 280 C470 135 610 260 820 120 L820 578 L80 578 Z" fill="#ffffff" opacity=".22"/>
+  <path d="M115 500 C245 370 350 455 470 310 C570 190 685 310 790 230" fill="none" stroke="#fff" stroke-width="20" opacity=".38" stroke-linecap="round"/>
+  <circle cx="462" cy="304" r="58" fill="#fff" opacity=".20"/>
+  <circle cx="706" cy="138" r="59" fill="#f316a7" opacity=".42"/>
+  <text x="74" y="96" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#fff" opacity=".90">The Pomps of the Subsoil</text>
+  <text x="76" y="535" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#fff" opacity=".78">Eco de los Pueblos · referencia visual</text>
+</svg>

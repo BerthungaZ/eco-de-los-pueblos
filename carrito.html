@@ -38,8 +38,8 @@
 
 <section class="page-hero compact-hero">
   <span class="pill">Compra</span>
-  <h1>Carrito y pago simulado</h1>
-  <p>Revisa tus piezas, valida datos de envío y genera un código de pedido local.</p>
+  <h1>Carrito y pago seguro</h1>
+  <p>Revisa tus piezas, valida tus datos de envío y elige un método de pago seguro.</p>
 </section>
 
 <section class="cart-page">
@@ -67,13 +67,14 @@
         <input name="address" type="text" placeholder="Calle, número, colonia" required>
       </label>
       <label>Método de pago
-        <select name="payment" required>
+        <select name="payment" id="paymentMethod" required>
           <option value="">Selecciona</option>
-          <option>Tarjeta</option>
-          <option>Transferencia</option>
-          <option>Pago contra entrega</option>
+          <option value="transferencia">Transferencia bancaria</option>
+          <option value="paypal">PayPal</option>
+          <option value="mercado-pago">Mercado Pago / Mercado Libre</option>
         </select>
       </label>
+      <div class="payment-options" id="paymentOptions"></div>
 
       <div class="summary-box" id="cartSummary"></div>
       <button class="btn btn-primary full" type="submit">Finalizar compra</button>

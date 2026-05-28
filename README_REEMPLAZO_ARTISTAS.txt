@@ -1,0 +1,1 @@
+Se retiraron los cinco artistas agregados previamente (Frida Kahlo, Diego Rivera, Leonora Carrington, Rufino Tamayo y Dr. Atl) y se agregaron Lorenzo Rivera, Masaru Goji y Miguel Ángel González con 10 obras de catálogo. Las imágenes son SVG originales referenciales, no reproducciones de obras protegidas.

@@ -5,13 +5,13 @@
   const DATA = window.ECO_DATA || { artworks: [], artists: [], categories: [] };
 
   const LS = {
-    cart: "eco_cart_v8",
-    favorites: "eco_favorites_v8",
-    orders: "eco_orders_v8",
-    currentUser: "eco_current_user_v8",
-    users: "eco_users_v8",
-    artistProfiles: "eco_artist_profiles_v8",
-    localArtworks: "eco_local_artworks_v8"
+    cart: "eco_cart_v10",
+    favorites: "eco_favorites_v10",
+    orders: "eco_orders_v10",
+    currentUser: "eco_current_user_v10",
+    users: "eco_users_v10",
+    artistProfiles: "eco_artist_profiles_v10",
+    localArtworks: "eco_local_artworks_v10"
   };
 
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -171,7 +171,19 @@
         technique: artist.technique,
         bio: artist.bio,
         avatar: artist.avatar,
-        createdAt: artist.createdAt
+        createdAt: artist.createdAt,
+        details: {
+          trajectory: "Artista local con enfoque en pintura y escultura, creado como perfil de muestra para enseñar el flujo real de edición artística dentro de la plataforma.",
+          personalStatement: "Su propuesta combina identidad regional, color y memoria visual para conectar al visitante con el origen de cada pieza.",
+          participations: "Participación en muestras comunitarias, ferias culturales y exposiciones escolares de arte regional.",
+          whyArtist: "Se volvió artista por interés en preservar historias familiares y convertirlas en piezas visuales.",
+          phone: artist.phone,
+          instagram: "artista.demo.eco",
+          facebook: "Artista Demo Eco",
+          academy: "Formación en talleres independientes de pintura y escultura.",
+          personalData: "Perfil de demostración usado para representar cómo un artista puede completar su ficha pública.",
+          recognitions: "Reconocimiento de muestra por participación en Eco de los Pueblos."
+        }
       }]);
     }
   }
@@ -206,6 +218,47 @@
     reader.readAsDataURL(file);
   }
 
+
+  function normalizeArtistDetails(details = {}) {
+    return {
+      trajectory: details.trajectory || "Información pendiente de completar por el artista.",
+      personalStatement: details.personalStatement || "Información pendiente de completar por el artista.",
+      participations: details.participations || "Información pendiente de completar por el artista.",
+      whyArtist: details.whyArtist || "Información pendiente de completar por el artista.",
+      phone: details.phone || "",
+      instagram: details.instagram || "",
+      facebook: details.facebook || "",
+      academy: details.academy || "Información pendiente de completar por el artista.",
+      personalData: details.personalData || "Información pendiente de completar por el artista.",
+      recognitions: details.recognitions || "Información pendiente de completar por el artista."
+    };
+  }
+
+  function filesToDataUrls(fileList) {
+    const files = Array.from(fileList || []).filter(file => file.type.startsWith("image/"));
+    return Promise.all(files.map(file => new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    })));
+  }
+
+  function paymentLinks(method) {
+    const links = {
+      paypal: "https://www.paypal.com/signin",
+      "mercado-pago": "https://www.mercadopago.com.mx/",
+      transferencia: ""
+    };
+    return links[method] || "";
+  }
+
+  function paymentLabel(method) {
+    if (method === "paypal") return "PayPal";
+    if (method === "mercado-pago") return "Mercado Pago / Mercado Libre";
+    if (method === "transferencia") return "Transferencia bancaria";
+    return "Pago no seleccionado";
+  }
+
   function insertLoader() {
     if (sessionStorage.getItem("eco_loader_seen")) return;
 
@@ -232,18 +285,24 @@
   }
 
   function allArtists() {
+    const baseArtists = (DATA.artists || []).map(artist => ({
+      ...artist,
+      details: normalizeArtistDetails(artist.details || {})
+    }));
+
     const localArtists = artistProfiles().map(profile => ({
       id: profile.id,
       name: profile.name,
       origin: profile.origin || "México",
       technique: profile.technique || "Arte contemporáneo",
       avatar: profile.avatar || "artista-04.svg",
-      bio: profile.bio || "Artista registrado en Eco de los Pueblos."
+      bio: profile.bio || "Artista registrado en Eco de los Pueblos.",
+      details: normalizeArtistDetails(profile.details || {})
     }));
 
     const localIds = new Set(localArtists.map(artist => artist.id));
     return [
-      ...DATA.artists.filter(artist => !localIds.has(artist.id)),
+      ...baseArtists.filter(artist => !localIds.has(artist.id)),
       ...localArtists
     ];
   }
@@ -373,6 +432,18 @@
 
     const adminTab = event.target.closest("[data-admin-tab]");
     if (adminTab) setAdminTab(adminTab.getAttribute("data-admin-tab"));
+
+    const artistDetail = event.target.closest("[data-artist-detail]");
+    if (artistDetail) showArtistDetails(artistDetail.getAttribute("data-artist-detail"));
+
+    const modalClose = event.target.closest("[data-close-artist-modal]");
+    if (modalClose) closeArtistModal();
+
+    const viewerClose = event.target.closest("[data-close-3d-viewer]");
+    if (viewerClose) closeArtwork3DViewer();
+
+    const viewerBackdrop = event.target.closest("#artwork3DViewer");
+    if (viewerBackdrop && event.target === viewerBackdrop) closeArtwork3DViewer();
   });
 
   function renderFeatured() {
@@ -575,6 +646,85 @@
     renderActiveChips(filters);
   }
 
+
+  function openArtwork3DViewer(item) {
+    closeArtwork3DViewer();
+
+    const modal = document.createElement("div");
+    modal.className = "artwork-3d-backdrop";
+    modal.id = "artwork3DViewer";
+    modal.innerHTML = `
+      <section class="artwork-3d-modal motion-card" aria-label="Vista 3D de ${escapeHTML(item.title)}">
+        <button class="modal-close viewer-close" type="button" data-close-3d-viewer>×</button>
+
+        <div class="viewer-copy">
+          <span class="pill small">Vista interactiva 3D</span>
+          <h2>${escapeHTML(item.title)}</h2>
+          <p>${escapeHTML(item.artistName)} · mueve el cursor sobre el cuadro para girarlo suavemente.</p>
+        </div>
+
+        <div class="viewer-3d-stage" id="viewer3DStage">
+          <div class="viewer-3d-wall"></div>
+          <div class="viewer-3d-shadow"></div>
+          <figure class="viewer-3d-frame" id="viewer3DFrame">
+            <div class="viewer-3d-side left"></div>
+            <div class="viewer-3d-side right"></div>
+            <div class="viewer-3d-side top"></div>
+            <div class="viewer-3d-side bottom"></div>
+            <img src="${item.image}" alt="${escapeHTML(item.title)}">
+          </figure>
+        </div>
+
+        <div class="viewer-controls">
+          <button type="button" data-viewer-zoom="in">Acercar</button>
+          <button type="button" data-viewer-zoom="out">Alejar</button>
+          <button type="button" data-viewer-reset>Reiniciar</button>
+          <button type="button" data-close-3d-viewer>Cerrar</button>
+        </div>
+      </section>
+    `;
+
+    document.body.appendChild(modal);
+
+    const stage = $("#viewer3DStage", modal);
+    const frame = $("#viewer3DFrame", modal);
+    let zoom = 1;
+
+    const applyTransform = (rotateX = 0, rotateY = 0) => {
+      frame.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${zoom})`;
+    };
+
+    stage.addEventListener("mousemove", event => {
+      const rect = stage.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      const rotateY = x * 18;
+      const rotateX = -y * 14;
+      applyTransform(rotateX, rotateY);
+    });
+
+    stage.addEventListener("mouseleave", () => applyTransform(0, 0));
+
+    $$("[data-viewer-zoom]", modal).forEach(button => {
+      button.addEventListener("click", () => {
+        zoom += button.dataset.viewerZoom === "in" ? 0.08 : -0.08;
+        zoom = Math.min(1.35, Math.max(0.82, zoom));
+        applyTransform(0, 0);
+      });
+    });
+
+    $("[data-viewer-reset]", modal)?.addEventListener("click", () => {
+      zoom = 1;
+      applyTransform(0, 0);
+    });
+  }
+
+  function closeArtwork3DViewer() {
+    const modal = document.getElementById("artwork3DViewer");
+    if (modal) modal.remove();
+  }
+
+
   function initProduct() {
     if (!$("#productPage")) return;
 
@@ -586,6 +736,9 @@
 
     $("#productImage").src = item.image;
     $("#productImage").alt = item.title;
+    $("#productImage").classList.add("interactive-product-image");
+    $("#productImage").title = "Presiona para abrir la vista 3D";
+    $("#productImage").onclick = () => openArtwork3DViewer(item);
     $("#productCategory").textContent = item.category;
     $("#productCertificate").textContent = item.certificate ? "Certificado" : "Sin certificado";
     $("#productOrigin").textContent = item.origin;
@@ -619,6 +772,63 @@
     $("#similarGrid").innerHTML = similar.map(artworkCard).join("");
   }
 
+
+  function artistDetailRows(details) {
+    const d = normalizeArtistDetails(details);
+    return [
+      ["Acerca de su trayectoria", d.trajectory],
+      ["Escrito personal de artista", d.personalStatement],
+      ["Lugares donde ha participado", d.participations],
+      ["Por qué se volvió artista", d.whyArtist],
+      ["Número telefónico", d.phone || "No disponible"],
+      ["Instagram", d.instagram ? `@${d.instagram.replace(/^@/, "")}` : "No disponible"],
+      ["Facebook", d.facebook || "No disponible"],
+      ["Academia donde estudió", d.academy],
+      ["Datos personales", d.personalData],
+      ["Reconocimientos", d.recognitions]
+    ];
+  }
+
+  function showArtistDetails(id) {
+    const artist = allArtists().find(item => item.id === id);
+    if (!artist) return;
+
+    const works = allArtworks().filter(item => item.artistId === artist.id || item.artistName === artist.name).slice(0, 6);
+    const rows = artistDetailRows(artist.details);
+
+    closeArtistModal();
+    const modal = document.createElement("div");
+    modal.className = "artist-modal-backdrop";
+    modal.id = "artistDetailModal";
+    modal.innerHTML = `
+      <section class="artist-modal motion-card">
+        <button class="modal-close" type="button" data-close-artist-modal>×</button>
+        <div class="artist-modal-head">
+          <img src="${artist.avatar}" alt="${escapeHTML(artist.name)}">
+          <div>
+            <span class="pill small">${escapeHTML(artist.origin)}</span>
+            <h2>${escapeHTML(artist.name)}</h2>
+            <p>${escapeHTML(artist.technique)}</p>
+          </div>
+        </div>
+        <p class="artist-modal-bio">${escapeHTML(artist.bio || "")}</p>
+        <div class="artist-detail-grid">
+          ${rows.map(([label, value]) => `<article><strong>${escapeHTML(label)}</strong><p>${escapeHTML(value)}</p></article>`).join("")}
+        </div>
+        <h3>Obras relacionadas</h3>
+        <div class="artist-modal-works">
+          ${works.length ? works.map(work => `<a href="producto.html?id=${encodeURIComponent(work.id)}"><img src="${work.image}" alt="${escapeHTML(work.title)}"><span>${escapeHTML(work.title)}</span></a>`).join("") : "<p>No hay obras publicadas todavía.</p>"}
+        </div>
+      </section>
+    `;
+    document.body.appendChild(modal);
+  }
+
+  function closeArtistModal() {
+    const existing = document.getElementById("artistDetailModal");
+    if (existing) existing.remove();
+  }
+
   function initArtists() {
     const grid = $("#artistGrid");
     if (!grid) return;
@@ -626,14 +836,15 @@
     const render = () => {
       const q = ($("#artistSearch")?.value || "").toLowerCase();
       const artists = allArtists().filter(artist => {
-        const haystack = [artist.name, artist.origin, artist.technique, artist.bio].join(" ").toLowerCase();
+        const detailText = Object.values(normalizeArtistDetails(artist.details || {})).join(" ");
+        const haystack = [artist.name, artist.origin, artist.technique, artist.bio, detailText].join(" ").toLowerCase();
         return haystack.includes(q);
       });
 
       grid.innerHTML = artists.map(artist => {
         const count = allArtworks().filter(item => item.artistId === artist.id || item.artistName === artist.name).length;
         return `
-          <article class="artist-card motion-card">
+          <article class="artist-card motion-card artist-click-card">
             <img src="${artist.avatar}" alt="${escapeHTML(artist.name)}">
             <div>
               <span class="pill small">${escapeHTML(artist.origin)}</span>
@@ -643,7 +854,10 @@
                 <span>${escapeHTML(artist.technique)}</span>
                 <span>${count} obras</span>
               </div>
-              <a class="btn btn-soft" href="catalogo.html?artista=${encodeURIComponent(artist.name)}">Ver obras</a>
+              <div class="artist-actions">
+                <button class="btn btn-primary" type="button" data-artist-detail="${artist.id}">Ver detalles</button>
+                <a class="btn btn-soft" href="catalogo.html?artista=${encodeURIComponent(artist.name)}">Ver obras</a>
+              </div>
             </div>
           </article>
         `;
@@ -743,8 +957,53 @@
     if (form.elements.address) form.elements.address.value = shipping.address || user.address || "";
   }
 
+
+  function renderPaymentOptions(method) {
+    const box = $("#paymentOptions");
+    if (!box) return;
+
+    if (!method) {
+      box.innerHTML = "";
+      return;
+    }
+
+    if (method === "transferencia") {
+      box.innerHTML = `
+        <div class="payment-card motion-card">
+          <h3>Transferencia bancaria</h3>
+          <p>Realiza tu pago por transferencia y conserva tu comprobante para validación.</p>
+          <div class="payment-data">
+            <span>Banco: BBVA</span>
+            <span>CLABE: 012 180 00123456789 0</span>
+            <span>Beneficiario: Eco de los Pueblos</span>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (method === "paypal" || method === "mercado-pago") {
+      const link = paymentLinks(method);
+      box.innerHTML = `
+        <div class="payment-card motion-card">
+          <h3>${paymentLabel(method)}</h3>
+          <p>Abre ${paymentLabel(method)} para continuar con el pago de forma segura.</p>
+          <a class="btn btn-primary full" href="${link}" target="_blank" rel="noopener">Abrir ${paymentLabel(method)}</a>
+        </div>
+      `;
+    }
+  }
+
+  function initPaymentUI() {
+    const select = $("#paymentMethod");
+    if (!select) return;
+    select.addEventListener("change", () => renderPaymentOptions(select.value));
+    renderPaymentOptions(select.value);
+  }
+
   function initCart() {
     if (!$("#checkoutForm")) return;
+    initPaymentUI();
 
     const user = currentUser();
     if (user?.role === "admin") {
@@ -781,6 +1040,7 @@
       const subtotal = rows.reduce((sum, row) => sum + row.artwork.price * row.qty, 0);
       const total = subtotal + 600;
       const code = `EP-${Date.now().toString().slice(-6)}`;
+      const paymentMethod = data.payment || "transferencia";
 
       const order = {
         code,
@@ -805,6 +1065,9 @@
           artistName: row.artwork.artistName || "Artista"
         })),
         total,
+        paymentMethod,
+        paymentLabel: paymentLabel(paymentMethod),
+        paymentLink: paymentLinks(paymentMethod),
         status: 2
       };
 
@@ -833,6 +1096,8 @@
           <h3>Compra simulada generada</h3>
           <p>Tu código de pedido es:</p>
           <strong>${code}</strong>
+          <p>Método de pago: ${paymentLabel(paymentMethod)}</p>
+          ${paymentLinks(paymentMethod) ? `<a class="btn btn-soft full" target="_blank" rel="noopener" href="${paymentLinks(paymentMethod)}">Abrir ${paymentLabel(paymentMethod)}</a>` : ""}
           <a class="btn btn-primary full" href="envios.html?pedido=${encodeURIComponent(code)}">Rastrear pedido</a>
         </div>
       `;
@@ -948,7 +1213,7 @@
     save(LS.currentUser, user);
     updateRoleUI();
     updateAccountNav();
-    toast(`Entraste como ${role}`);
+    toast(`Acceso iniciado como ${role}`);
     renderAccount();
     initAdmin();
   }
@@ -967,7 +1232,7 @@
           <section class="account-login motion-card">
             <span class="pill small">Acceso</span>
             <h2>Iniciar sesión</h2>
-            <p>Entra con una cuenta existente o usa una cuenta demo para presentación.</p>
+            <p>Entra con tu cuenta o usa un acceso rápido para revisar la plataforma.</p>
 
             <form id="loginForm" class="login-form">
               <label>Correo electrónico
@@ -982,9 +1247,9 @@
             </form>
 
             <div class="demo-logins">
-              <button type="button" data-demo-login="cliente">Demo cliente</button>
-              <button type="button" data-demo-login="artista">Demo artista</button>
-              <button type="button" data-demo-login="admin">Demo admin</button>
+              <button type="button" data-demo-login="cliente">Entrar como cliente</button>
+              <button type="button" data-demo-login="artista">Entrar como artista</button>
+              <button type="button" data-demo-login="admin">Entrar como admin</button>
             </div>
           </section>
 
@@ -1211,9 +1476,10 @@
     }
 
     if (tab === "artista") {
+      const details = normalizeArtistDetails(artist?.details || {});
       box.innerHTML = artist
         ? `
-          <div class="info-card motion-card">
+          <div class="info-card motion-card artist-detail-account-card">
             <div class="artist-account-header">
               <div class="avatar-slot small">${buildAvatar(artist, "avatar small")}</div>
               <div>
@@ -1230,9 +1496,66 @@
             </label>
 
             <a class="btn btn-primary" href="panel-artista.html">Abrir panel de artista</a>
+            <button class="btn btn-soft" id="toggleArtistDetails" type="button">Detalles del perfil</button>
+
+            <div class="artist-detail-editor" id="artistDetailEditor">
+              <h3>Detalles del perfil artístico</h3>
+              <p class="detail-help">Esta información aparecerá públicamente cuando los clientes entren a Artistas y presionen Ver detalles.</p>
+              <form id="artistDetailsForm" class="details-form">
+                <label>Acerca de su trayectoria
+                  <textarea name="trajectory" rows="3">${escapeHTML(details.trajectory)}</textarea>
+                </label>
+                <label>Escrito personal de artista
+                  <textarea name="personalStatement" rows="3">${escapeHTML(details.personalStatement)}</textarea>
+                </label>
+                <label>Lugares donde ha participado
+                  <textarea name="participations" rows="3">${escapeHTML(details.participations)}</textarea>
+                </label>
+                <label>Por qué se volvió artista
+                  <textarea name="whyArtist" rows="3">${escapeHTML(details.whyArtist)}</textarea>
+                </label>
+                <label>Número telefónico
+                  <input name="phone" value="${escapeHTML(details.phone || artist.phone || user.phone || "")}">
+                </label>
+                <label>Instagram
+                  <input name="instagram" value="${escapeHTML(details.instagram)}" placeholder="usuario o @usuario">
+                </label>
+                <label>Facebook
+                  <input name="facebook" value="${escapeHTML(details.facebook)}" placeholder="Página o perfil">
+                </label>
+                <label>Academia donde estudió
+                  <input name="academy" value="${escapeHTML(details.academy)}">
+                </label>
+                <label>Datos personales
+                  <textarea name="personalData" rows="3">${escapeHTML(details.personalData)}</textarea>
+                </label>
+                <label>Reconocimientos
+                  <textarea name="recognitions" rows="3">${escapeHTML(details.recognitions)}</textarea>
+                </label>
+                <button class="btn btn-primary full" type="submit">Guardar detalles</button>
+              </form>
+            </div>
           </div>
         `
         : `<div class="info-card motion-card"><h3>Perfil de artista no encontrado</h3></div>`;
+
+      $("#toggleArtistDetails")?.addEventListener("click", () => {
+        $("#artistDetailEditor")?.classList.toggle("visible");
+      });
+
+      $("#artistDetailsForm")?.addEventListener("submit", event => {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(event.target).entries());
+        const profiles = artistProfiles();
+        const index = profiles.findIndex(profile => profile.userId === user.id || normalizeEmail(profile.email) === normalizeEmail(user.email));
+        if (index >= 0) {
+          profiles[index] = { ...profiles[index], phone: data.phone || profiles[index].phone, details: normalizeArtistDetails(data) };
+          setArtistProfiles(profiles);
+        }
+        syncCurrentUser({ ...user, phone: data.phone || user.phone });
+        toast("Detalles artísticos guardados");
+        renderAccount();
+      });
 
       $("#artistAvatarInput")?.addEventListener("change", event => {
         handleAvatarUpload(event.target, dataUrl => {
@@ -1338,10 +1661,9 @@
           phone: data.phone,
           origin: data.origin,
           technique: data.technique,
-          rfc: data.rfc || "",
-          studies: data.studies || "",
           bio: data.bio,
           avatar: null,
+          details: {},
           createdAt: new Date().toISOString()
         };
 
@@ -1397,7 +1719,7 @@
 
           <div class="art-body">
             <h3>${escapeHTML(item.title)}</h3>
-            <p>${escapeHTML(item.technique)}</p>
+            <p>${escapeHTML(item.technique)}${item.photos?.length ? ` · ${item.photos.length} foto(s)` : ""}</p>
             <div class="art-footer">
               <strong>${money.format(item.price)}</strong>
               <button class="remove-btn" type="button" data-delete-local="${item.id}">Eliminar</button>
@@ -1430,7 +1752,16 @@
       return;
     }
 
-    $("#artworkForm").addEventListener("submit", event => {
+    $("#artworkPhotos")?.addEventListener("change", async event => {
+      const preview = $("#artworkPhotoPreview");
+      if (!preview) return;
+      const images = await filesToDataUrls(event.target.files);
+      preview.innerHTML = images.length
+        ? images.map(src => `<img src="${src}" alt="Vista previa de obra">`).join("")
+        : "";
+    });
+
+    $("#artworkForm").addEventListener("submit", async event => {
       event.preventDefault();
 
       const profile = artistProfiles().find(item => item.userId === user.id || normalizeEmail(item.email) === normalizeEmail(user.email));
@@ -1440,6 +1771,9 @@
       }
 
       const form = Object.fromEntries(new FormData(event.target).entries());
+      const uploadedPhotos = await filesToDataUrls($("#artworkPhotos")?.files || []);
+      const photos = uploadedPhotos.length ? uploadedPhotos : [form.image];
+
       const artwork = {
         id: uid("obra"),
         title: form.title,
@@ -1454,13 +1788,15 @@
         certificate: Boolean(form.certificate),
         stock: 1,
         featured: false,
-        image: form.image,
+        image: photos[0],
+        photos,
         tags: [form.category.toLowerCase(), form.technique.toLowerCase()],
         description: form.description
       };
 
       save(LS.localArtworks, [artwork, ...read(LS.localArtworks, [])]);
       event.target.reset();
+      if ($("#artworkPhotoPreview")) $("#artworkPhotoPreview").innerHTML = "";
       renderMyArtworks();
       toast("Obra publicada en el catálogo");
     });

@@ -2203,3 +2203,462 @@ body::before { display:none; }
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ===== Nuevas funciones: fotos de obra, detalles de artista y pagos ===== */
+.full-field,
+.artwork-form .full-field {
+  grid-column: 1 / -1;
+}
+
+.photo-preview {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.photo-preview img {
+  height: 120px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid rgba(23,32,38,.08);
+  box-shadow: var(--soft-shadow);
+}
+
+.artist-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.artist-click-card {
+  cursor: pointer;
+}
+
+.artist-click-card .btn {
+  cursor: pointer;
+}
+
+.artist-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, .62);
+  backdrop-filter: blur(10px);
+}
+
+.artist-modal {
+  position: relative;
+  width: min(980px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  padding: clamp(22px, 4vw, 38px);
+  border-radius: var(--radius-xl);
+  background: rgba(255,255,255,.96);
+  box-shadow: var(--shadow);
+}
+
+.modal-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--blue-deep);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 950;
+}
+
+.artist-modal-head {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.artist-modal-head img {
+  height: 130px;
+  object-fit: cover;
+  border-radius: 28px;
+  box-shadow: var(--soft-shadow);
+}
+
+.artist-modal-bio {
+  color: var(--muted);
+  font-weight: 750;
+}
+
+.artist-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 22px 0;
+}
+
+.artist-detail-grid article {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(29,79,163,.06);
+  border: 1px solid rgba(29,79,163,.08);
+}
+
+.artist-detail-grid strong {
+  color: var(--blue-deep);
+}
+
+.artist-detail-grid p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.artist-modal-works {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.artist-modal-works a {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(29,79,163,.06);
+  font-weight: 900;
+}
+
+.artist-modal-works img {
+  height: 120px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.artist-detail-editor {
+  display: none;
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: rgba(29,79,163,.06);
+}
+
+.artist-detail-editor.visible {
+  display: block;
+}
+
+.details-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.details-form label:nth-child(1),
+.details-form label:nth-child(2),
+.details-form label:nth-child(3),
+.details-form label:nth-child(4),
+.details-form label:nth-child(9),
+.details-form label:nth-child(10),
+.details-form button {
+  grid-column: 1 / -1;
+}
+
+.payment-options {
+  margin: 4px 0 12px;
+}
+
+.payment-card {
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  background: rgba(29,79,163,.07);
+  border: 1px solid rgba(29,79,163,.09);
+}
+
+.payment-card h3 {
+  margin-bottom: 6px;
+  color: var(--blue-deep);
+}
+
+.payment-data {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.payment-data span {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.70);
+  font-weight: 850;
+}
+
+@media (max-width: 760px) {
+  .photo-preview,
+  .artist-detail-grid,
+  .details-form,
+  .artist-modal-works,
+  .artist-modal-head {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.detail-help {
+  margin: -4px 0 16px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+
+
+/* ===== Vista 3D interactiva para obras ===== */
+
+.interactive-product-image {
+  cursor: zoom-in;
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+}
+
+.interactive-product-image:hover {
+  transform: translateY(-4px) scale(1.01);
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.product-media::after {
+  content: "Presiona la imagen para vista 3D";
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+  z-index: 4;
+  padding: 9px 13px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(23, 59, 136, .88);
+  font-size: .78rem;
+  font-weight: 950;
+  box-shadow: var(--soft-shadow);
+  pointer-events: none;
+}
+
+.artwork-3d-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2300;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background:
+    radial-gradient(circle at 30% 24%, rgba(243, 22, 167, .18), transparent 24rem),
+    radial-gradient(circle at 70% 30%, rgba(30, 119, 199, .20), transparent 25rem),
+    rgba(11, 18, 35, .76);
+  backdrop-filter: blur(12px);
+}
+
+.artwork-3d-modal {
+  position: relative;
+  width: min(1120px, 100%);
+  max-height: 94vh;
+  overflow: auto;
+  padding: clamp(22px, 4vw, 38px);
+  border-radius: var(--radius-xl);
+  background: rgba(255,255,255,.97);
+  box-shadow: 0 28px 80px rgba(8, 13, 28, .35);
+}
+
+.viewer-close {
+  z-index: 5;
+}
+
+.viewer-copy {
+  max-width: 720px;
+  margin-bottom: 18px;
+}
+
+.viewer-copy h2 {
+  margin-top: 10px;
+  font-size: clamp(1.8rem, 4vw, 3.3rem);
+}
+
+.viewer-copy p {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.viewer-3d-stage {
+  position: relative;
+  min-height: min(62vh, 620px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(247,248,252,.95), rgba(236,240,248,.98)),
+    radial-gradient(circle at center, rgba(29,79,163,.12), transparent 30rem);
+  perspective: 1200px;
+  border: 1px solid rgba(23,32,38,.08);
+}
+
+.viewer-3d-wall {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(23,59,136,.06) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(23,59,136,.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: .45;
+}
+
+.viewer-3d-shadow {
+  position: absolute;
+  width: min(520px, 72vw);
+  height: 46px;
+  bottom: 14%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(11,18,35,.32), transparent 70%);
+  filter: blur(8px);
+  transform: translateY(42px);
+}
+
+.viewer-3d-frame {
+  position: relative;
+  width: min(560px, 78vw);
+  max-height: 70%;
+  margin: 0;
+  padding: 18px;
+  transform-style: preserve-3d;
+  transform: rotateX(0deg) rotateY(0deg) scale(1);
+  transition: transform .16s ease-out;
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, #f8fafc, #e7ecf5);
+  border: 14px solid #183d85;
+  box-shadow:
+    0 34px 70px rgba(10, 20, 45, .32),
+    inset 0 0 0 3px rgba(255,255,255,.78);
+}
+
+.viewer-3d-frame::before {
+  content: "";
+  position: absolute;
+  inset: -22px;
+  transform: translateZ(-34px);
+  border-radius: 22px;
+  background: linear-gradient(135deg, #0d2f70, #123f91);
+  box-shadow: 28px 26px 50px rgba(10,20,45,.22);
+}
+
+.viewer-3d-frame img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-height: 55vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(15,23,42,.08);
+  transform: translateZ(22px);
+}
+
+.viewer-3d-side {
+  position: absolute;
+  z-index: 1;
+  background: linear-gradient(135deg, #0c2d69, #1b55ad);
+  opacity: .96;
+}
+
+.viewer-3d-side.left,
+.viewer-3d-side.right {
+  top: -14px;
+  width: 34px;
+  height: calc(100% + 28px);
+}
+
+.viewer-3d-side.left {
+  left: -34px;
+  transform: rotateY(90deg);
+  transform-origin: right center;
+}
+
+.viewer-3d-side.right {
+  right: -34px;
+  transform: rotateY(-90deg);
+  transform-origin: left center;
+}
+
+.viewer-3d-side.top,
+.viewer-3d-side.bottom {
+  left: -14px;
+  width: calc(100% + 28px);
+  height: 34px;
+}
+
+.viewer-3d-side.top {
+  top: -34px;
+  transform: rotateX(-90deg);
+  transform-origin: bottom center;
+}
+
+.viewer-3d-side.bottom {
+  bottom: -34px;
+  transform: rotateX(90deg);
+  transform-origin: top center;
+}
+
+.viewer-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.viewer-controls button {
+  min-height: 42px;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--blue-deep);
+  background: rgba(29,79,163,.09);
+  font-weight: 950;
+  transition: transform .2s ease, background .2s ease, color .2s ease;
+}
+
+.viewer-controls button:hover {
+  transform: translateY(-2px);
+  color: #ffffff;
+  background: var(--blue-deep);
+}
+
+@media (max-width: 760px) {
+  .product-media::after {
+    left: 14px;
+    bottom: 14px;
+    font-size: .68rem;
+  }
+
+  .viewer-3d-stage {
+    min-height: 440px;
+  }
+
+  .viewer-3d-frame {
+    width: min(420px, 76vw);
+    padding: 10px;
+    border-width: 10px;
+  }
+
+  .viewer-3d-frame img {
+    max-height: 48vh;
+  }
+
+  .viewer-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
